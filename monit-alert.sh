@@ -85,15 +85,23 @@ else
     return 0
 fi
 
+# Check if alert_type is passed via $1
+if [ -n "$1" ]; then
+    _log "Alert type passed via argument - $1"
+    EVENT=$1
+else
+    _log "Alert type not passed via argument - Using MONIT_EVENT"
+    EVENT=$MONIT_EVENT
+fi
+
 # Monit environment variables
-_debug "Monit environment variables - MONIT_EVENT: $MONIT_EVENT, MONIT_SERVICE: $MONIT_SERVICE, MONIT_DESCRIPTION: $MONIT_DESCRIPTION, MONIT_DATE: $MONIT_DATE, MONIT_HOST: $MONIT_HOST"
-MONIT_EVENT=$MONIT_EVENT
+_debug "Monit environment variables - MONIT_EVENT: $EVENT, MONIT_SERVICE: $MONIT_SERVICE, MONIT_DESCRIPTION: $MONIT_DESCRIPTION, MONIT_DATE: $MONIT_DATE, MONIT_HOST: $MONIT_HOST"
 MONIT_SERVICE=$MONIT_SERVICE
 MONIT_DESCRIPTION=$MONIT_DESCRIPTION
 MONIT_DATE=$MONIT_DATE
 MONIT_HOST=$MONIT_HOST  # Capturing hostname
 
-TITLE="$MONIT_HOST - $MONIT_SERVICE - $MONIT_EVENT"
+TITLE="$MONIT_HOST - $MONIT_SERVICE - $$EVENT"
 MESSAGE="$MONIT_DESCRIPTION - $MONIT_DATE - $MONIT_HOST"
 
 # Check if $SERVICES=() is not empty
