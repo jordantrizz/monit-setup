@@ -98,6 +98,7 @@ else
     _log "Services to alert: ${SERVICES[@]}"
 fi
 
+_log "Sending alert to services"
 for SERVICE in "${SERVICES[@]}"; do
     case $SERVICE in
         gotify)
