@@ -14,6 +14,12 @@ _log () {
     echo "$(date +"%Y-%m-%d %H:%M:%S") - $SCRIPT_NAME - $1" >> $LOG_FILE
 }
 
+_debug () {
+    if [ "$DEBUG" == "true" ]; then
+        _log "DEBUG: $1"
+    fi
+}
+
 _load_config () {
     # Load environment variables from .env file confirm it exists and how many variables
     if [ -f "$SCRIPT_DIR/.env" ]; then
@@ -21,7 +27,7 @@ _load_config () {
         set -a
         source "$SCRIPT_DIR/.env"
         set +a
-        _log "Environment variables loaded from ${SCRIPT_DIR}/.env file - SERVICES: ${SERVICES[@]}"
+        _debug "Environment variables loaded from ${SCRIPT_DIR}/.env file - SERVICES: ${SERVICES[@]}"
     else
         echo "Error: .env file not found"
         exit 1
@@ -80,7 +86,7 @@ else
 fi
 
 # Monit environment variables
-_log "Monit environment variables - MONIT_EVENT: $MONIT_EVENT, MONIT_SERVICE: $MONIT_SERVICE, MONIT_DESCRIPTION: $MONIT_DESCRIPTION, MONIT_DATE: $MONIT_DATE, MONIT_HOST: $MONIT_HOST"
+_debug "Monit environment variables - MONIT_EVENT: $MONIT_EVENT, MONIT_SERVICE: $MONIT_SERVICE, MONIT_DESCRIPTION: $MONIT_DESCRIPTION, MONIT_DATE: $MONIT_DATE, MONIT_HOST: $MONIT_HOST"
 MONIT_EVENT=$MONIT_EVENT
 MONIT_SERVICE=$MONIT_SERVICE
 MONIT_DESCRIPTION=$MONIT_DESCRIPTION
