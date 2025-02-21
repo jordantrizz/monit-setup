@@ -1,0 +1,2 @@
+check file testfile with path /root/test-monit
+    alert
