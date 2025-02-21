@@ -90,7 +90,7 @@ if [ -n "$1" ]; then
     _log "Alert type passed via argument - $1"
     EVENT=$1
 else
-    _log "Alert type not passed via argument - Using MONIT_EVENT"
+    _log "Alert type not passed via argument - Using MONIT_EVENT: $MONIT_EVENT"
     EVENT=$MONIT_EVENT
 fi
 
