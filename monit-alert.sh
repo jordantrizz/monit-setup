@@ -80,7 +80,7 @@ else
 fi
 
 # Monit environment variables
-_log "Monit environment variables - $MONIT_EVENT - $MONIT_SERVICE - $MONIT_DESCRIPTION - $MONIT_DATE - $MONIT_HOST"
+_log "Monit environment variables - MONIT_EVENT: $MONIT_EVENT, MONIT_SERVICE: $MONIT_SERVICE, MONIT_DESCRIPTION: $MONIT_DESCRIPTION, MONIT_DATE: $MONIT_DATE, MONIT_HOST: $MONIT_HOST"
 MONIT_EVENT=$MONIT_EVENT
 MONIT_SERVICE=$MONIT_SERVICE
 MONIT_DESCRIPTION=$MONIT_DESCRIPTION
@@ -94,6 +94,8 @@ MESSAGE="$MONIT_DESCRIPTION - $MONIT_DATE - $MONIT_HOST"
 if [ -z "$SERVICES" ]; then
     _log "No services to alert"
     exit 0
+else
+    _log "Services to alert: ${SERVICES[@]}"
 fi
 
 for SERVICE in "${SERVICES[@]}"
