@@ -98,8 +98,7 @@ else
     _log "Services to alert: ${SERVICES[@]}"
 fi
 
-for SERVICE in "${SERVICES[@]}"
-do
+for SERVICE in "${SERVICES[@]}"; do
     case $SERVICE in
         gotify)
             _log "Sending alert to Gotify"
@@ -118,4 +117,4 @@ do
             ;;
     esac
 done
-        
+_log "Monit alert completed"
