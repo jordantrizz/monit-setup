@@ -89,13 +89,13 @@ MONIT_HOST=$MONIT_HOST  # Capturing hostname
 TITLE="$MONIT_HOST - $MONIT_SERVICE - $MONIT_EVENT"
 MESSAGE="$MONIT_DESCRIPTION - $MONIT_DATE - $MONIT_HOST"
 
-SERVICES="$1"
-SERVICES_ARRAY=()
+# Check if $SERVICES=() is not empty
+if [ -z "$SERVICES" ]; then
+    _log "No services to alert"
+    exit 0
+fi
 
-# Break up the services
-IFS='|' read -r -a SERVICES_ARRAY <<< "$SERVICES"
-
-for SERVICE in "${SERVICES_ARRAY[@]}"
+for SERVICE in "${SERVICES[@]}"
 do
     case $SERVICE in
         gotify)
@@ -111,7 +111,7 @@ do
             _send_email_alert "$MESSAGE" "$SERVICE_NAME" "$EVENT"
             ;;
         *)
-            _log "Unknown service: $SERVICE"
+            _log "Unknown service: $SERVICE or not enabled"
             ;;
     esac
 done
