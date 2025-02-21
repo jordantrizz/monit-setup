@@ -21,7 +21,7 @@ _load_config () {
         set -a
         source "$SCRIPT_DIR/.env"
         set +a
-        _log "Environment variables loaded"
+        _log "Environment variables loaded from .env file - SERVICES: ${SERVICES[@]}"
     else
         echo "Error: .env file not found"
         exit 1
