@@ -92,13 +92,12 @@ MESSAGE="$MONIT_DESCRIPTION - $MONIT_DATE - $MONIT_HOST"
 
 # Check if $SERVICES=() is not empty
 if [ -z "$SERVICES" ]; then
-    _log "No services to alert"
+    _log "No services to alert - SERVICES: ${SERVICES[@]} - Exiting"
     exit 0
 else
     _log "Services to alert: ${SERVICES[@]}"
 fi
 
-_log "Sending alert to services"
 for SERVICE in "${SERVICES[@]}"; do
     case $SERVICE in
         gotify)
