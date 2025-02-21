@@ -43,7 +43,7 @@ _send_gotify_alert () {
 
     _log "Gotify alert: $1 - $2 - $3"
     _log "Sending alert to Gotify - ${GOTIFY_URL}/message?token=${GOTIFY_TOKEN} -F title=$TITLE -F message=$MESSAGE -F priority=$PRIORITY"
-    curl -X POST "${GOTIFY_URL}/message?token=${GOTIFY_TOKEN}" -F "title=$TITLE" -F "message=$MESSAGE" -F "priority=$PRIORITY"
+    curl -X POST "${GOTIFY_URL}/message?token=${GOTIFY_TOKEN}" -F "title=$TITLE" -F "message=$MESSAGE" -F "priority=$PRIORITY" -s -o /dev/null -w "%{http_code}" | grep -q "200" && return 0 || return $?
     return $?
 }
 
